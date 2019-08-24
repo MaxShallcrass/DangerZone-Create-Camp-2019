@@ -34,15 +34,6 @@ function initAutocomplete() {
        fillOpacity: 0.35
     });
     bermudaTriangle.setMap(map);
-   //  var b = new google.maps.Polygon({
-   //    paths: polygonCoords[0],
-   //    strokeColor: '#FF0000',
-   //    strokeOpacity: 0.8,
-   //    strokeWeight: 2,
-   //    fillColor: '#FF0000',
-   //    fillOpacity: 0.35
-   // });
-   // b.setMap(map);
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
