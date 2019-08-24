@@ -10,19 +10,32 @@ var zones = [
 ]
 
 
+
+
 function initAutocomplete() {
+
+  // var coords = navigator.geolocation ? getLocation() : [,
+
+
 	conversion();
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: {
+      lat: Number(-41.293279),
+      lng: Number(174.783762)
+    },
+    mapTypeId: 'roadmap'
+  });
 
-        // Hard coded to wellington
-        center: {
-            lat: -41.2865,
-            lng: 174.7762
-        },
-        mapTypeId: 'roadmap'
-    });
-
+  getLocation()
+    .then(function(loc) {
+      map.setCenter({ lat: loc[0], lng: loc[1] })
+      var marker = new google.maps.Marker({
+          position: { lat: loc[0], lng: loc[1] },
+          map: map
+        });
+    })
+    .catch(function(err) { console.log("No location"); });
 
     // Construct the polygon.
      var bermudaTriangle = new google.maps.Polygon({
@@ -34,15 +47,6 @@ function initAutocomplete() {
        fillOpacity: 0.35
     });
     bermudaTriangle.setMap(map);
-   //  var b = new google.maps.Polygon({
-   //    paths: polygonCoords[0],
-   //    strokeColor: '#FF0000',
-   //    strokeOpacity: 0.8,
-   //    strokeWeight: 2,
-   //    fillColor: '#FF0000',
-   //    fillOpacity: 0.35
-   // });
-   // b.setMap(map);
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
@@ -104,6 +108,30 @@ function initAutocomplete() {
     });
 }
 
+// xPos and yPos are local and the global one aint changing
+function getLocation() {
+  var xPos;
+  var yPos;
+
+  var promise = new Promise(function(resolve, reject) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position){
+        resolve([position.coords.latitude, position.coords.longitude])
+      });
+    } else {
+      reject("Unknown");
+    }});
+  console.log(promise)
+  return promise;
+}
+
+// function showPosition(position, xPos, yPos) {
+//   xPos = position.coords.latitude;
+//   yPos = position.coords.longitude;
+//   console.log(xPos);
+//   console.log(yPos);
+// }
+
 
 function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     var i;
@@ -149,7 +177,6 @@ while (dtheta < -Math.PI)
 
 //conversion from text to google map format.
 function conversion() {
-
     var xyHash =[];
 
     //console.log(array);
