@@ -30,6 +30,7 @@ function initialise() {
           position: { lat: loc[0], lng: loc[1] },
           map: map
         });
+      console.log(isPersonInDangerZone(loc[0], loc[1], latList, lngList))
     })
     .catch(function(err) { console.log("No location"); });
 
@@ -47,7 +48,7 @@ function initialise() {
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
@@ -82,7 +83,7 @@ function initialise() {
                 position: place.geometry.location,
                 map: map
               });
-
+            isPersonInDangerZone(place.geometry.location.lat(), place.geometry.location.lng(), latList, lngList);
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);
@@ -125,9 +126,11 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     }
 
     if(Math.abs(angle)<Math.PI) {
+    	document.getElementById("yesno").innerHTML = "SAFE";
         return false;
     }
     else {
+    	document.getElementById("yesno").innerHTML = "RISK";
       return true;
     }
 }
