@@ -156,8 +156,7 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     else {
         document.getElementById("yesno").innerHTML = "RISK";
         var safeZone = closestSafeZone(personLat, personLong)
-        calcRoute(personLat, personLong,safeZone["lat"], safeZone["lng"])
-        //    function calcRoute(startLat, startLong, finishLat, finishLong){
+        calcRoute(personLat, personLong,safeZone.geometry.coordinates[1], safeZone.geometry.coordinates[0])
 
       return true;
     }
@@ -217,19 +216,12 @@ function convertObjectToArray(data, key) {
  * them and find the closest point between those 10
  */
 function closestSafeZone(personLong, personLat){
-    var currentShortest=10000000000;
-    var closestLatLong;
-        for(var i=0; i<polygonCoords[0].length; i++){
-            var lat=polygonCoords[0][i]["lat"];
-            var long=polygonCoords[0][i]["lng"];
-            var distance=Math.sqrt(Math.pow((lat-personLat), 2)+Math.pow((long-personLat), 2));
-            if(distance< currentShortest){
-                currentShortest=distance;
-                closestLatLong=polygonCoords[0][i];
-            }
-        }
-        return closestLatLong;
-    }
+    var targetPoint = turf.point([personLat, personLong])
+    var points;
+    var poly = turf.polygon(zones[0])
+    var line = turf.polygonToLine(poly)  
+    return turf.nearestPointOnLine(line, targetPoint)
+}
     
     
     /**
