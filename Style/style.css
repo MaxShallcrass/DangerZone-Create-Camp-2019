@@ -12,6 +12,7 @@ body {
 .title{
 	font-family: 'Vollkorn', serif;
 	font-size: 20px;
+	margin-top: 0%;
 }
 
 #canvasSection{
@@ -24,23 +25,34 @@ body {
 	align-items: center;
 }
 
+.titlelogo{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 50px;
+}
+
+.question{
+	font-family: 'Yantramanav', sans-serif;
+}
 /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
 
 #map {
-    margin: 0 auto;
-    height: 300px;
-    width: 75%;
+    margin: -1% auto;
+    height: 400px;
+    width: 60%;
     border-color: #126DA6;
     border-style: solid;
   	border-width: 5px;
 }
 
 .Information{
+	margin-top: 5%;
 	font-family: 'Yantramanav', sans-serif;
 	text-align: center;
-	margin-left: 15%;
-	margin-right: 15%;
+	margin-left: 25%;
+	margin-right: 25%;
 	padding-bottom: 5%;
 }
 
@@ -48,11 +60,28 @@ body {
 /* Optional: Makes the sample page fill the window. */
 
 .footer {
-  position: fixed;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: 80%;
   background-color: #126DA6;
   color: white;
   text-align: center;
+}
+
+.no{
+	margin-top: 0;
+	font-size: 70px;
+	font-family: 'Yantramanav', sans-serif;
+	color: #238C2A;
+  	padding: 5px;
+  	background: #C8F1FE;
+}
+
+.yes{
+	margin-top: 0;
+	font-size: 70px;
+	font-family: 'Yantramanav', sans-serif;
+	color: #BF0B3B;
+  	padding: 5px;
+  	background: #C8F1FE;
 }

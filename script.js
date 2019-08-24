@@ -126,10 +126,12 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     }
 
     if(Math.abs(angle)<Math.PI) {
+    	document.getElementById("yesno").className = " no ";
     	document.getElementById("yesno").innerHTML = "SAFE";
         return false;
     }
     else {
+    	document.getElementById("yesno").className = " yes ";
     	document.getElementById("yesno").innerHTML = "RISK";
       return true;
     }
@@ -177,4 +179,18 @@ function convertObjectToArray(data, key) {
     arr.push(data[0][i][key])
   }
   return arr;
+}
+
+//header scroll bar
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
 }
