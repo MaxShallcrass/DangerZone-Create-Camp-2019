@@ -151,9 +151,11 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     }
 
     if(Math.abs(angle)<Math.PI) {
+    	document.getElementById("yesno").innerHTML = "SAFE";
         return false;
     }
     else {
+    	document.getElementById("yesno").innerHTML = "RISK";
       return true;
     }
 }
