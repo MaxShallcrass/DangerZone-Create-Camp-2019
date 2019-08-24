@@ -12,14 +12,32 @@
 </head>
 
 <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div class="flex">
+      <h1 class="title">Danger Zone</h1>
+
+      <img src="Style/Images/Safe.JPG" class="SafeRisk">
+
+<form>
+    <input id="pac-input" type="text" placeholder="Search">
+</form>
     <script src="script.js"></script>
     <div id="map"></div>
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrOAaa7vX_WmxeOWQ8sJi5xaf9dR7TqJk&callback=initMap">
     </script> -->
+<div class="Information">
+    <h2>Information about site</h2>
+    <p>The Danger Zone website was made to make New Zealanders feel safer about tsunami’s after an earthquake. The website collects real-time data from Geonet about earthquakes and displays that data on the google maps API to give the user a feeling of safety after an earthquake. The point of the website is to show the user if they are safe from a tsunami after an earthquake and if not, it shows the user the nearest safe zone. <br> 
+    It was made as part of the Summer of Tech Create Camp hosted by Flux to make a project based around an API or dataset.
+    </p>
+</div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrOAaa7vX_WmxeOWQ8sJi5xaf9dR7TqJk&libraries=places,geometry&callback=initAutocomplete" async defer></script>
 
+<div class="footer">
+  <p>Footer</p>
+</div>
+
+</div>
 </body>
 
 </html>
