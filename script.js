@@ -72,7 +72,7 @@ function initAutocomplete() {
                 position: place.geometry.location
             }));
             console.log(place.geometry.location.lat());
-            console.log(place.geometry.location.lon())
+            console.log(place.geometry.location.lng());
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);
@@ -80,7 +80,7 @@ function initAutocomplete() {
                 bounds.extend(place.geometry.location);
             }
         });
-        map.fitBounds(bounds);
+        // map.fitBounds(bounds);
     });
 }
 
