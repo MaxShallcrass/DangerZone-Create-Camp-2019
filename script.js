@@ -12,7 +12,20 @@ var zones = [
     "1750906.8297 5423824.354,1750799.8668 5423995.1081,1750842.2848 5424032.6602,1750851.3409 5424108.7516,1750904.5906 5424104.4568,1750918.5357 5424235.5172,1750948.9131 5424267.4265,1750998.8972 5424275.3252,1751038.7065 5424258.4631,1751111.4572 5424194.1988,1751101.0069 5424089.1458,1751077.8368 5424089.4539,1751052.0216 5423933.4627,1751012.8289 5423935.1746,1751004.4566 5423825.5386,1750932.8473 5423868.3571,1750906.8297 5423824.354"
 ]
 
-function initMap() {
+// function initMap() {
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         zoom: 12,
+
+//         // Hard coded to wellington
+//         center: {
+//             lat: -41.2865,
+//             lng: 174.7762
+//         },
+//         mapTypeId: 'terrain'
+//     });
+// }
+
+function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12,
 
@@ -21,28 +34,69 @@ function initMap() {
             lat: -41.2865,
             lng: 174.7762
         },
-        mapTypeId: 'terrain'
+        mapTypeId: 'roadmap'
     });
 
-    // // Define the LatLng coordinates for the polygon's path.
-    // var triangleCoords = [
-    //   {lat: 25.774, lng: -80.190},
-    //   {lat: 18.466, lng: -66.118},
-    //   {lat: 32.321, lng: -64.757},
-    //   {lat: 25.774, lng: -80.190}
-    // ];
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    // // Construct the polygon.
-    // var bermudaTriangle = new google.maps.Polygon({
-    //   paths: triangleCoords,
-    //   strokeColor: '#FF0000',
-    //   strokeOpacity: 0.8,
-    //   strokeWeight: 2,
-    //   fillColor: '#FF0000',
-    //   fillOpacity: 0.35
-    // });
-    // bermudaTriangle.setMap(map);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            var icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+    });
 }
+
 
 //conversion from text to google map format. 
 function conversion() {
