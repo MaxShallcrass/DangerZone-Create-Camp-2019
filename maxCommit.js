@@ -1,8 +1,8 @@
 /**
- *Returns true if a person at (personLat, persnLong) is located 
+ *Returns true if a person at (personLat, persnLong) is located
  *within the polygon coordinates in (polyLats, polyLongs)
  *
- *Gets sum of angles made between the person point and 
+ *Gets sum of angles made between the person point and
  *each pair of points making up the polygon
  */
 function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
@@ -13,7 +13,7 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     var point2_lat;
     var point2_long;
     //var polySize= polyLats.size();
-    for (i = 0; i < polyLats.size(); i++) {
+    for (i = 0; i < polyLats.length; i++) {
          point1_lat=polyLats(i)-personLat;
          point1_long=polyLongs(i)-personLong;
          point2_lat=polyLats((i+1)%n)-personLat; // uses modulas for the last values in the array
