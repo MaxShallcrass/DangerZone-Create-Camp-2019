@@ -52,7 +52,7 @@ function initAutocomplete() {
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
@@ -96,8 +96,7 @@ function initAutocomplete() {
                 title: place.name,
                 position: place.geometry.location
             }));
-            console.log(place.geometry.location.lat());
-            console.log(place.geometry.location.lon())
+            isPersonInDangerZone(place.geometry.location.lat(), place.geometry.location.lng(), latList, lngList);
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);
