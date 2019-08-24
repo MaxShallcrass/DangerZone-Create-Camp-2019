@@ -2,10 +2,12 @@
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: 12,
+
+        // Hard coded to wellington
         center: {
-            lat: 24.886,
-            lng: -70.268
+            lat: -41.2865,
+            lng: 174.7762
         },
         mapTypeId: 'terrain'
     });
