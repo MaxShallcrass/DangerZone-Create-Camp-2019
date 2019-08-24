@@ -34,6 +34,7 @@ function initAutocomplete() {
           position: { lat: loc[0], lng: loc[1] },
           map: map
         });
+      console.log(isPersonInDangerZone(loc[0], loc[1], latList, lngList))
     })
     .catch(function(err) { console.log("No location"); });
 
