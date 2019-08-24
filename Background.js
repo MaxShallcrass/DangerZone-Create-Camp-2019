@@ -1,6 +1,15 @@
-var canvas = document.getElementById('canvasSection');
 
+var canvas;
 let yoff = 0.0; // 2nd dimension of perlin noise
+
+
+function setup(){
+  console.log("HI")
+  canvas = createCanvas(windowWidth,windowHeight);
+  debugger
+  canvas.position(0,0);
+  canvas.style('z-index', '-1');
+}
 
 function draw() {
   background(51);
@@ -29,4 +38,5 @@ function draw() {
   vertex(width, height);
   vertex(0, height);
   endShape(CLOSE);
+
 }
