@@ -12,7 +12,7 @@ var zones = [
 
 function initialise() {
 	conversion();
-  map = new google.maps.Map(document.getElementById('map'), {
+  map1 = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: {
       lat: Number(-41.293279),
@@ -24,11 +24,11 @@ function initialise() {
   // gets user's location
   getLocation()
     .then(function(loc) {
-      map.setCenter({ lat: loc[0], lng: loc[1] })
-      map.setZoom(15);
+      map1.setCenter({ lat: loc[0], lng: loc[1] })
+      map1.setZoom(15);
       marker = new google.maps.Marker({
           position: { lat: loc[0], lng: loc[1] },
-          map: map
+          map: map1
         });
       console.log(isPersonInDangerZone(loc[0], loc[1], latList, lngList))
     })
@@ -43,16 +43,16 @@ function initialise() {
        fillColor: '#FF0000',
        fillOpacity: 0.35
     });
-    bermudaTriangle.setMap(map);
+    bermudaTriangle.setMap(map1);
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map1.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
-        searchBox.setBounds(map.getBounds());
+    map1.addListener('bounds_changed', function() {
+        searchBox.setBounds(map1.getBounds());
     });
 
     // Listen for the event fired when the user selects a prediction and retrieve
@@ -81,7 +81,7 @@ function initialise() {
             marker.setMap(null)
             marker = new google.maps.Marker({
                 position: place.geometry.location,
-                map: map
+                map: map1
               });
             isPersonInDangerZone(place.geometry.location.lat(), place.geometry.location.lng(), latList, lngList);
             if (place.geometry.viewport) {
@@ -91,7 +91,7 @@ function initialise() {
                 bounds.extend(place.geometry.location);
             }
         });
-        map.fitBounds(bounds);
+        map1.fitBounds(bounds);
     });
 }
 
@@ -126,6 +126,7 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     }
 
     if(Math.abs(angle)<Math.PI) {
+    	console.log("you here")
     	document.getElementById("yesno").innerHTML = "SAFE";
         return false;
     }
