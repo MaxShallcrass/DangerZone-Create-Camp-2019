@@ -36,6 +36,7 @@ body {
 .question{
 	font-size: 50px;
 	font-family: 'Yantramanav', sans-serif;
+	color: #5E5E5E;
 }
 /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
@@ -51,6 +52,14 @@ body {
 }
 
 .gm-style-mtc{
+	display: none;
+}
+
+.gm-svpc{
+	display: none;
+}
+
+.gm-control-active{
 	display: none;
 }
 
@@ -81,21 +90,17 @@ body {
 }
 
 .no{
-	margin-top: 0;
+	margin-top: -5%;
 	font-size: 70px;
 	font-family: 'Yantramanav', sans-serif;
 	color: #238C2A;
-  	padding: 5px;
-  	background: #C8F1FE;
 }
 
 .yes{
-	margin-top: 0;
+	margin-top: -5%;
 	font-size: 70px;
 	font-family: 'Yantramanav', sans-serif;
 	color: #BF0B3B;
-  	padding: 5px;
-  	background: #C8F1FE;
 }
 
 @media only screen and (max-width: 600px) {
@@ -116,6 +121,14 @@ body {
 		font-size: 20px;
 	}
 
+	.no{
+		font-size: 50px;
+}
+
+	.yes{
+		font-size: 50px;
+	}
+
 	#map {
 		width: 100%;
 	}
@@ -127,4 +140,6 @@ body {
 	.footer img{
 		width: 20%;
 	}
+
+
 }
