@@ -13,10 +13,11 @@
     <link href="https://fonts.googleapis.com/css?family=Vollkorn|Yantramanav&display=swap" rel="stylesheet">
 
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+
+   	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.js"></script>
     <script src="Background.js"></script>
-
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 </head>
 
 <body onload="draw()">
@@ -47,9 +48,7 @@
 </div>
 <div id="canvasSection">
 </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrOAaa7vX_WmxeOWQ8sJi5xaf9dR7TqJk&libraries=places,geometry&callback=initialise" async defer></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrOAaa7vX_WmxeOWQ8sJi5xaf9dR7TqJk&libraries=places,geometry,directions&callback=initialise" async defer></script>
 <div class="footer">
     <a href="https://www.newzealandnow.govt.nz/living-in-nz/safety/emergency-services">
         <img src="Style/Images/emergency_logo.png" width="5%">
