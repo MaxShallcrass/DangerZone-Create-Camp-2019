@@ -56,11 +56,11 @@ function initialise() {
         quakeCoords.push({lat: strongQuakes[i]['geometry']['coordinates'][1],
                           lng: strongQuakes[i]['geometry']['coordinates'][0]})
       }
-      document.getElementById("quakes").innerHTML =
-        "<table style='width:100%'><tr>" +
-      "<th>Time</th>" +
-      "<th>Magnitude (1-10)</th></tr>"
-      +table+"</table>"
+      // document.getElementById("quakes").innerHTML =
+      //   "<table style='width:100%'><tr>" +
+      // "<th>Time</th>" +
+      // "<th>Magnitude (1-10)</th></tr>"
+      // +table+"</table>"
 
       var quakeMarkers = []
       for (var i=0; i<quakeCoords.length; i++) {

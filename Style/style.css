@@ -70,13 +70,14 @@ body {
 	margin-left: 25%;
 	margin-right: 25%;
 	padding-bottom: 5%;
+	color: #5E5E5E;
 }
 
 
 /* Optional: Makes the sample page fill the window. */
 
 .footer {
-	padding:10px;
+	padding:30px;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -86,7 +87,7 @@ body {
 }
 
 .footer a{
-	padding:20px;
+	padding:30px;
 }
 
 .no{
@@ -104,6 +105,10 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+	#canvasSection{
+		width: 100%;
+	}
+
 	.title{
 		font-size: 20px;
 	}
@@ -130,7 +135,11 @@ body {
 	}
 
 	#map {
-		width: 100%;
+		width: 90%;
+	}
+
+	.Information{
+		width: 90%;
 	}
 
 	.footer a{
