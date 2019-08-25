@@ -37,6 +37,37 @@ function initialise() {
     })
     .catch(function(err) { console.log("No location"); });
 
+    getQuakeData('https://api.geonet.org.nz/intensity?type=measured', function(err, data) {
+    if (err !== null) {
+      alert('Something went wrong: ' + err);
+    } else {
+      quakes = data;
+    }
+    }).then(function(quakes) {
+      var strongQuakes = processQuakes(quakes);
+      var table = "";
+      var quakeCoords = [];
+      for (var i=0; i<strongQuakes.length; i++) {
+        table += "<tr><td>25/08/2019 11:57:03</td><td>"+strongQuakes[i]['properties']['mmi']+"</td></tr>"
+        quakeCoords.push({lat: strongQuakes[i]['geometry']['coordinates'][1],
+                          lng: strongQuakes[i]['geometry']['coordinates'][0]})
+      }
+      document.getElementById("quakes").innerHTML =
+        "<table style='width:100%'><tr>" +
+      "<th>Time</th>" +
+      "<th>Magnitude (1-10)</th></tr>"
+      +table+"</table>"
+
+      var quakeMarkers = []
+      for (var i=0; i<quakeCoords.length; i++) {
+        new google.maps.Marker({
+          position: quakeCoords[i],
+          map: map1
+        });
+      }
+
+    });
+
     // Construct the polygon.
      var bermudaTriangle = new google.maps.Polygon({
        paths: polygonCoords[0],
@@ -131,12 +162,12 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
     if(Math.abs(angle)<Math.PI) {
     	console.log("you here")
     	document.getElementById("yesno").className = " no ";
-    	document.getElementById("yesno").innerHTML = "SAFE";
+    	document.getElementById("yesno").innerHTML = "SAFE ZONE";
         return false;
     }
     else {
         document.getElementById("yesno").className = " yes ";
-        document.getElementById("yesno").innerHTML = "RISK";
+        document.getElementById("yesno").innerHTML = "TSUNAMI ZONE";
         var safeZone = closestSafeZone(personLat, personLong)
         calcRoute(personLat, personLong,safeZone.geometry.coordinates[1], safeZone.geometry.coordinates[0])
 
@@ -233,4 +264,37 @@ function closestSafeZone(personLong, personLat){
               alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
             }
           });
+          marker.setMap(null)
         }
+
+function getQuakeData(url, callback) {
+  var promise = new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status === 200) {
+        callback(null, xhr.response)
+        resolve(xhr.response)
+      } else {
+        callback(status, xhr.response);
+        resolve(xhr.response)
+      }
+    };
+    xhr.send();
+  });
+  return promise;
+};
+
+function processQuakes(quakes) {
+  var features = quakes['features']
+  console.log(features)
+  var strongQuakes = []
+  for (var i=0; i<features.length; i++) {
+    if (features[i]['properties']['mmi'] >= 2) {
+      strongQuakes.push(features[i])
+    }
+  }
+  return strongQuakes.slice(0,4);
+}

@@ -5,7 +5,7 @@ let yoff = 0.0; // 2nd dimension of perlin noise
 
 function setup(){
   console.log("HI")
-  canvas = createCanvas(windowWidth,windowHeight + 400);
+  canvas = createCanvas(windowWidth,windowHeight + 600);
   debugger
   canvas.position(0,0);
   canvas.style('z-index', '-1');
