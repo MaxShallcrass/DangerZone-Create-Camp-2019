@@ -14,30 +14,6 @@ var quakes;
 function initialise() {
 	conversion();
 
-  getQuakeData('https://api.geonet.org.nz/intensity?type=measured', function(err, data) {
-  if (err !== null) {
-    alert('Something went wrong: ' + err);
-  } else {
-    quakes = data;
-  }
-  }).then(function(quakes) {
-    var strongQuakes = processQuakes(quakes);
-    document.getElementById("quakes").innerHTML =
-      "<table style='width:100%'><tr>" +
-    "<th>Time</th>" +
-    "<th>Magnitude (1-10)</th>" +
-  "</tr><tr>" +
-    "<td>25/08/2019</td>" +
-    "<td>"+strongQuakes[0]['properties']['mmi']+"</td>" +
-  "</tr><tr>" +
-    "<td>25/08/2019</td>" +
-    "<td>"+strongQuakes[1]['properties']['mmi']+"</td>" +
-  "</tr><tr>" +
-    "<td>25/08/2019</td>" +
-    "<td>"+strongQuakes[2]['properties']['mmi']+"</td>" +
-  "</tr></table>"
-  });
-
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: {
@@ -59,8 +35,39 @@ function initialise() {
     })
     .catch(function(err) { console.log("No location"); });
 
+    getQuakeData('https://api.geonet.org.nz/intensity?type=measured', function(err, data) {
+    if (err !== null) {
+      alert('Something went wrong: ' + err);
+    } else {
+      quakes = data;
+    }
+    }).then(function(quakes) {
+      var strongQuakes = processQuakes(quakes);
+      var table = "";
+      var quakeCoords = [];
+      for (var i=0; i<strongQuakes.length; i++) {
+        table += "<tr><td>25/08/2019 11:57:03</td><td>"+strongQuakes[i]['properties']['mmi']+"</td></tr>"
+        quakeCoords.push({lat: strongQuakes[i]['geometry']['coordinates'][1],
+                          lng: strongQuakes[i]['geometry']['coordinates'][0]})
+      }
+      document.getElementById("quakes").innerHTML =
+        "<table style='width:100%'><tr>" +
+      "<th>Time</th>" +
+      "<th>Magnitude (1-10)</th></tr>"
+      +table+"</table>"
+
+      var quakeMarkers = []
+      for (var i=0; i<quakeCoords.length; i++) {
+        var m = new google.maps.Marker({
+            position: quakeCoords[i],
+            map: map1
+          });
+      }
+
+    });
+
     // Construct the polygon.
-     var bermudaTriangle = new google.maps.Polygon({
+     var polygon = new google.maps.Polygon({
        paths: polygonCoords[0],
        strokeColor: '#FF0000',
        strokeOpacity: 0.8,
@@ -68,7 +75,7 @@ function initialise() {
        fillColor: '#FF0000',
        fillOpacity: 0.35
     });
-    bermudaTriangle.setMap(map);
+    polygon.setMap(map);
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
