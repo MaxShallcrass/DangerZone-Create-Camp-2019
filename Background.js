@@ -5,15 +5,21 @@ let yoff = 0.0; // 2nd dimension of perlin noise
 
 function setup(){
   console.log("HI")
+<<<<<<< HEAD
   canvas = createCanvas(windowWidth,windowHeight);
+=======
+  canvas = createCanvas(windowWidth,windowHeight + 400);
+  debugger
+>>>>>>> e2cba3f1e63da5332539d84165b850eeeaff10c5
   canvas.position(0,0);
   canvas.style('z-index', '-1');
 }
 
 function draw() {
-  background(51);
+  noStroke();
+  background("#395273");
 
-  fill(255);
+  fill("#CEE8F2");
   // We are going to draw a polygon out of the wave points
   beginShape();
 
@@ -27,13 +33,19 @@ function draw() {
     // Option #1: 2D Noise
     let y = map(noise(xoff, yoff), 0, -1, 200, 300);
 
+
     // Set the vertex
-    vertex(x, y);
+    if(windowWidth < 600){
+      vertex(x, y-25);
+    }else{
+
+    vertex(x, y + 100);
+    }
     // Increment x dimension for noise
     xoff += 0.05;
   }
   // increment y dimension for noise
-  yoff += 0.003;
+  yoff += 0.005;
   vertex(width, height);
   vertex(0, height);
   endShape(CLOSE);

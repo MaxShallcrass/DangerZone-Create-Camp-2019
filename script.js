@@ -1,6 +1,3 @@
-//version 1
-
-
 var polygonCoords = [];
 var latList;
 var lngList;
@@ -220,6 +217,8 @@ while (dtheta < -Math.PI)
 //conversion from text to google map format.
 function conversion() {
     var xyHash =[];
+
+    //console.log(array);
     zones[0].forEach((zone)=>{
 		xyHash.push(zone.map((point)=>{
     		return {
@@ -240,3 +239,50 @@ function convertObjectToArray(data, key) {
   }
   return arr;
 }
+
+/**
+ * returns lattitude and longitude of the closest point
+ * outside the evacution zone relative to the person
+ * lattitude and longitude
+ *
+ * Note: To get a more accurate closest location, maybe
+ * get the two closest locations and plot 10 points between
+ * them and find the closest point between those 10
+ */
+function closestSafeZone(personLong, personLat){
+    var targetPoint = turf.point([personLat, personLong])
+    var points;
+    var poly = turf.polygon(zones[0])
+    var line = turf.polygonToLine(poly)
+    return turf.nearestPointOnLine(line, targetPoint)
+}
+
+
+    /**
+     * Calculates route from start to finish lat/long and adds it to google maps
+     *
+     * @param startLat
+     * @param startLong
+     * @param finishLat
+     * @param FinishLong
+     */
+    function calcRoute(startLat, startLong, finishLat, finishLong){
+        var start = new google.maps.LatLng(startLat, startLong);
+        var end = new google.maps.LatLng(finishLat, finishLong);
+        var directionsDisplay = new google.maps.DirectionsRenderer()
+        var directionsService = new google.maps.DirectionsService()
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.WALKING
+          };
+
+          directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              directionsDisplay.setDirections(response);
+              directionsDisplay.setMap(map1);
+            } else {
+              alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+            }
+          });
+        }
