@@ -21,7 +21,21 @@ function initialise() {
     quakes = data;
   }
   }).then(function(quakes) {
-    var recentQuakes = processQuakes(quakes);
+    var strongQuakes = processQuakes(quakes);
+    document.getElementById("quakes").innerHTML =
+      "<table style='width:100%'><tr>" +
+    "<th>Time</th>" +
+    "<th>Magnitude (1-10)</th>" +
+  "</tr><tr>" +
+    "<td>25/08/2019</td>" +
+    "<td>"+strongQuakes[0]['properties']['mmi']+"</td>" +
+  "</tr><tr>" +
+    "<td>25/08/2019</td>" +
+    "<td>"+strongQuakes[1]['properties']['mmi']+"</td>" +
+  "</tr><tr>" +
+    "<td>25/08/2019</td>" +
+    "<td>"+strongQuakes[2]['properties']['mmi']+"</td>" +
+  "</tr></table>"
   });
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -42,7 +56,6 @@ function initialise() {
           position: { lat: loc[0], lng: loc[1] },
           map: map
         });
-      console.log(isPersonInDangerZone(loc[0], loc[1], latList, lngList))
     })
     .catch(function(err) { console.log("No location"); });
 
@@ -109,13 +122,14 @@ function initialise() {
 
 function processQuakes(quakes) {
   var features = quakes['features']
+  console.log(features)
   var strongQuakes = []
   for (var i=0; i<features.length; i++) {
     if (features[i]['properties']['mmi'] >= 2) {
       strongQuakes.push(features[i])
     }
   }
-  
+  return strongQuakes.slice(0,4);
 }
 
 function getQuakeData(url, callback) {
@@ -199,8 +213,6 @@ while (dtheta < -Math.PI)
 //conversion from text to google map format.
 function conversion() {
     var xyHash =[];
-
-    //console.log(array);
     zones[0].forEach((zone)=>{
 		xyHash.push(zone.map((point)=>{
     		return {
