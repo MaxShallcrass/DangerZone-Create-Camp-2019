@@ -66,7 +66,14 @@ function initialise() {
       for (var i=0; i<quakeCoords.length; i++) {
         new google.maps.Marker({
           position: quakeCoords[i],
-          map: map1
+          map: map1,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8.5,
+            fillColor: "#F00",
+            fillOpacity: 0.4,
+            strokeWeight: 0.4
+          }
         });
       }
 
