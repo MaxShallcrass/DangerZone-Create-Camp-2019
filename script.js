@@ -130,10 +130,12 @@ function isPersonInDangerZone(personLat, personLong, polyLats, polyLongs){
 
     if(Math.abs(angle)<Math.PI) {
     	console.log("you here")
+    	document.getElementById("yesno").className = " no ";
     	document.getElementById("yesno").innerHTML = "SAFE";
         return false;
     }
     else {
+        document.getElementById("yesno").className = " yes ";
         document.getElementById("yesno").innerHTML = "RISK";
         var safeZone = closestSafeZone(personLat, personLong)
         calcRoute(personLat, personLong,safeZone.geometry.coordinates[1], safeZone.geometry.coordinates[0])

@@ -21,11 +21,15 @@
 </head>
 
 <body onload="draw()">
-    
+    <canvas id="canvasSection" width="100%" height="100%">Error, canvas not supported</canvas>
     <div class="flex">
-    
-    
-      <h1 class="title">Danger Zone</h1>
+        <div class="titlelogo">
+            <img src="Style/Images/web_logo.png" width="10%" height="10%">
+            <h1 class="title">Danger Zone</h1>
+        </div>
+        <div class="question" id="myHeader">
+            <h2>Am I in a Tsunami Zone?</h2>
+        </div>
       <h1 id = "yesno"> </h1>
 
 <form>
@@ -46,9 +50,15 @@
 </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrOAaa7vX_WmxeOWQ8sJi5xaf9dR7TqJk&libraries=places,geometry,directions&callback=initialise" async defer></script>
 <div class="footer">
-    <img src="Style/Images/emergency_logo.png" width="5%">
-    <img src="Style/Images/police_logo.png"width="5%">
-    <img src="Style/Images/geonet_logo.png"width="5%">
+    <a href="https://www.newzealandnow.govt.nz/living-in-nz/safety/emergency-services">
+        <img src="Style/Images/emergency_logo.png" width="5%">
+    </a>
+    <a href="https://www.police.govt.nz/contact-us/station/wellington-central-police-station">
+        <img src="Style/Images/police_logo.png" width="5%">
+    </a>
+    <a href="https://www.geonet.org.nz/earthquake">
+        <img src="Style/Images/geonet_logo.png" width="5%">
+    </a>
 </div>
 
 </div>

@@ -10,8 +10,10 @@ body {
 }
 
 .title{
-	font-family: 'Vollkorn', serif;
-	font-size: 20px;
+	color: #CEE8F2;
+	font-family: 'Yantramanav', sans-serif;
+	font-size: 40px;
+	margin-top: 0%;
 }
 
 #canvasSection{
@@ -24,23 +26,40 @@ body {
 	align-items: center;
 }
 
+.titlelogo{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 50px;
+}
+
+.question{
+	font-size: 50px;
+	font-family: 'Yantramanav', sans-serif;
+}
 /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
 
 #map {
-    margin: 0 auto;
-    height: 300px;
-    width: 75%;
-    border-color: #126DA6;
-    border-style: solid;
-  	border-width: 5px;
+    margin: -1% auto;
+    height: 400px;
+    width: 60%;
+}
+
+.gm-fullscreen-control{
+	display: none;
+}
+
+.gm-style-mtc{
+	display: none;
 }
 
 .Information{
+	margin-top: 5%;
 	font-family: 'Yantramanav', sans-serif;
 	text-align: center;
-	margin-left: 15%;
-	margin-right: 15%;
+	margin-left: 25%;
+	margin-right: 25%;
 	padding-bottom: 5%;
 }
 
@@ -48,11 +67,64 @@ body {
 /* Optional: Makes the sample page fill the window. */
 
 .footer {
-  position: fixed;
+	padding:10px;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #126DA6;
+  background-color: #395273;
   color: white;
   text-align: center;
+}
+
+.footer a{
+	padding:20px;
+}
+
+.no{
+	margin-top: 0;
+	font-size: 70px;
+	font-family: 'Yantramanav', sans-serif;
+	color: #238C2A;
+  	padding: 5px;
+  	background: #C8F1FE;
+}
+
+.yes{
+	margin-top: 0;
+	font-size: 70px;
+	font-family: 'Yantramanav', sans-serif;
+	color: #BF0B3B;
+  	padding: 5px;
+  	background: #C8F1FE;
+}
+
+@media only screen and (max-width: 600px) {
+	.title{
+		font-size: 20px;
+	}
+
+	.titlelogo{
+		padding-top: 20px;
+	}
+
+	.titlelogo img{
+		width:20%;
+	}
+
+	.question{
+		padding-top: 20px;
+		font-size: 20px;
+	}
+
+	#map {
+		width: 100%;
+	}
+
+	.footer a{
+		padding:20px;
+	}
+
+	.footer img{
+		width: 20%;
+	}
 }
