@@ -11,7 +11,7 @@
 
 ## Solution
 
-Link:
+Link: https://maxshallcrass.github.io/DangerZone-Create-Camp-2019/
 
 If you want to play around with it:
 - Use the search box in the map to search for a location within a tsunami zone (eg. Courtenay Place)
